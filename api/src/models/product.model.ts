@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 
 export interface IProduct {
-  _id?: string,
+  _id: string,
   name: string,
   description?: string,
   thumbnail?: string,
@@ -16,7 +16,9 @@ const productSchema = new mongoose.Schema<IProduct>({
   quantity: { type: Number, required: true },
   description: String,
   thumbnail: String
-})
+}, {
+  versionKey: false
+});
 
 const Product = mongoose.model<IProduct>('Product', productSchema)
 
