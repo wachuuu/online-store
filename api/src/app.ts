@@ -1,10 +1,13 @@
+import cors from 'cors';
 import 'dotenv/config';
 import express, { Application, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import { createProduct, deleteProduct, getProducts, updateProduct } from './service/product.service';
-
 const app: Application = express();
+
+app.use(cors())
 app.use(express.json());
+
 mongoose.connect(process.env.MONGODB_URI!);
 
 app.get('/products', (_: Request, res: Response) => {
@@ -23,16 +26,16 @@ app.post('/products', (req: Request, res: Response) => {
   })
 })
 
-app.put('/products', (req: Request, res: Response) => {
-  updateProduct(req.body).then((data) => {
+app.put('/products/:id', (req: Request, res: Response) => {
+  updateProduct({_id: req.params.id, ...req.body}).then((data) => {
     res.status(200).send(data);
   }, (err) => {
     res.status(400).send({message: err.message});
   })
 })
 
-app.delete('/products', (req: Request, res: Response) => {
-  deleteProduct(req.body).then((data) => {
+app.delete('/products/:id', (req: Request, res: Response) => {
+  deleteProduct(req.params.id).then((data) => {
     res.status(200).send(data);
   }, (err) => {
     res.status(400).send({message: err.message});

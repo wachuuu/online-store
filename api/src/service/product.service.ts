@@ -7,14 +7,12 @@ export async function createProduct(input: DocumentDefinition<IProduct>) {
   return result;
 }
 
-export async function deleteProduct(input: DocumentDefinition<IProduct>) {
-  if (!input._id) return Promise.reject({message: 'Product id not provided'});
-  const result = await Product.findOneAndDelete({_id: input._id}, {lean: true})
+export async function deleteProduct(id: string) {
+  const result = await Product.findOneAndDelete({_id: id}, {lean: true})
   return result;
 }
 
 export async function updateProduct(input:DocumentDefinition<IProduct>) {
-  if (!input._id) return Promise.reject({message: 'Product id not provided'});
   let {_id, ...body} = input;
   const result = await Product.findOneAndUpdate({_id: input._id}, {$set: body}, {lean: true} )
   return result;
