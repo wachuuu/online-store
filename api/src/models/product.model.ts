@@ -20,6 +20,6 @@ const productSchema = new mongoose.Schema<IProduct>({
   versionKey: false
 });
 
-const Product = mongoose.model<IProduct>('Product', productSchema)
+const Product = mongoose.model<IProduct>('Product', productSchema);
 
-export default Product
+export default Product;
