@@ -8,6 +8,9 @@ export async function createProduct(input: DocumentDefinition<IProduct>) {
 }
 
 export async function deleteProduct(input: DocumentDefinition<IProduct>) {
+  if (!input._id) return Promise.reject({message: 'Product id not provided'});
+  const result = await Product.findOneAndDelete({_id: input._id}, {lean: true})
+  return result;
 }
 
 export async function updateProduct(input:DocumentDefinition<IProduct>) {

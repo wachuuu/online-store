@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express, { Application, Request, Response } from 'express';
 import mongoose from 'mongoose';
-import { createProduct, getProducts, updateProduct } from './service/product.service';
+import { createProduct, deleteProduct, getProducts, updateProduct } from './service/product.service';
 
 const app: Application = express();
 app.use(express.json());
@@ -25,6 +25,14 @@ app.post('/products', (req: Request, res: Response) => {
 
 app.put('/products', (req: Request, res: Response) => {
   updateProduct(req.body).then((data) => {
+    res.status(200).send(data);
+  }, (err) => {
+    res.status(400).send({message: err.message});
+  })
+})
+
+app.delete('/products', (req: Request, res: Response) => {
+  deleteProduct(req.body).then((data) => {
     res.status(200).send(data);
   }, (err) => {
     res.status(400).send({message: err.message});
