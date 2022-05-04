@@ -26,7 +26,7 @@ export async function decrementProductQunatity(id: string, decrement: number) {
             resolve(afterUpdate);
           }, (err) => reject(err))
         } else {
-          reject({ message: 'Not enough product', id: id });
+          reject({ message: 'Product sold out', id: id });
         }
       } else {
         reject({ message: 'Invalid document', id: id });

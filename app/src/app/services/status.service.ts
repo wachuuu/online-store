@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 export interface Status {
   message?: string,
+  data?: any,
   code: StatusCode
 };
 
@@ -32,17 +33,19 @@ export class StatusService {
     this._orderStatus$.next(newStatus);
   }
 
-  setCompletedStatus(message: string) {
+  setCompletedStatus(message: string, data: any) {
     const newStatus =  {
       message: message,
+      data: data ? data : [],
       code: StatusCode.COMPLETED
     }
     this._orderStatus$.next(newStatus);
   }
   
-  setFailedStatus(message: string) {
+  setFailedStatus(message: string, data: any) {
     const newStatus =  {
       message: message,
+      data: data,
       code: StatusCode.FAILED
     }
     this._orderStatus$.next(newStatus);

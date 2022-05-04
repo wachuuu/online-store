@@ -14,7 +14,7 @@
       </strong>
     </span>
   </div>
-  <button (click)="addToCart()" [disabled]="product.quantity == 0" [ngClass]="{'cursor-not-allowed': product.quantity == 0, 'opacity-50': product.quantity == 0}" 
+  <button (click)="addToCart()" [ngClass]="{'cursor-not-allowed': product.quantity == 0, 'opacity-50': product.quantity == 0}" 
     class="mt-4 bg-transparent hover:bg-yellow-600 text-yellow-900 font-semibold hover:text-white py-2 px-4 border border-yellow-900 hover:border-transparent rounded " [disabled]="product.quantity === 0">
     Add to Cart
   </button>

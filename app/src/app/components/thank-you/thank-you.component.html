@@ -16,11 +16,17 @@
 <div *ngIf="status.code === codes.COMPLETED">
   <h2 class="text-2xl font-semibold">Order Completed</h2>
   <p>You order was successfull!</p>
+  <h3 class="text-xl mt-4">Enjoy your products:</h3>
+  <p *ngFor="let item of status.data">
+    <strong>{{ item.name }}</strong>
+  </p>
 </div>
 <div *ngIf="status.code === codes.FAILED">
   <h2 class="text-2xl font-semibold">Order Failed</h2>
-  <p class="text-red-600">This order was not succeded for the following reasons</p>
-  <p class="text-red-600 font-semibold">{{ status.message }}</p>
+  <div class="text-red-600">
+    <p>This order was not succeded for the following reasons</p>
+    <p class="font-semibold">{{ status.message }}: {{ status.data.name }}</p>
+  </div>
 
 </div>
 </div>

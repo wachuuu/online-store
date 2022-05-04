@@ -61,20 +61,21 @@ export class ProductsService {
   }
 
   public buyProducts(products: CartItem[]) {
-    this.http.post(`${this.url}/buy`, products, { observe: 'response' }).subscribe((response) => {
+    this.http.post(`${this.url}/buy`, products, { observe: 'response' }).subscribe({next: (response) => {
       if (response.ok) {
         this.router.navigate(['thank-you']);
         this.status.setPendingStatus('We\'re transferring your order');
         setTimeout(() => {
-          this.status.setCompletedStatus('All completed')
-        }, 1000)
-      } else {
-        this.router.navigate(['thank-you']);
-        this.status.setPendingStatus('We\'re transferring your order');
-        setTimeout(() => {
-          this.status.setFailedStatus(response.statusText)
-        }, 1000)
+          this.status.setCompletedStatus('All completed', response.body);
+        }, 1000);
       }
-    })
+    }, error: (err) => {
+      this.router.navigate(['thank-you']);
+      this.status.setPendingStatus('We\'re transferring your order');
+      setTimeout(() => {
+        let product = this.products.find(item => item._id === err.error.id);
+        this.status.setFailedStatus(err.error.message, product);
+      }, 1000);
+    }})
   }
 }
