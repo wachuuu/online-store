@@ -1,4 +1,4 @@
-<div class="border-b-2 pb-4 px-12">
+<div class="border-b-2 pb-4 px-2">
   <h1 class="text-3xl font-bold  ">Cart</h1>
   <a routerLink="/" class="text-blue-600">
     < Back to shop</a>
@@ -23,7 +23,7 @@
 <div *ngIf="cartItems.length > 0">
   <div class="flex justify-between border-t-2 border-b-2 py-3">
     <h2 class="font-bold mx-2">TOTAL: </h2>
-    <span class="font-bold mx-2 text-yellow-600 underline">{{ total.toFixed(2) }}</span>
+    <span class="font-bold mx-2 text-yellow-600">{{ total.toFixed(2) }}</span>
   </div>
   <div class="flex justify-center">
     <button (click)="finalize()"

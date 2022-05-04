@@ -31,10 +31,7 @@ export class CartService {
   }
 
   finalize() {
-    this.cart.forEach((item) => {
-      let product: Product = {...item.product, quantity: Math.max(item.product.quantity - item.quantity, 0)};
-      console.log(product)
-    })
+    this.productsService.buyProducts(this.cart);
   }
 
   clear(id: string | null) {

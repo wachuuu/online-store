@@ -1,0 +1,32 @@
+<div class="border-b-2 pb-4 px-2">
+  <h1 class="text-3xl font-bold">Thank you for your purchase!</h1>
+</div>
+<div class="flex flex-col items-center text-center mt-4">
+<div *ngIf="status.code === codes.NONE">
+  <h2 class="text-2xl font-semibold">Nothing to see here</h2>
+  <p>Place your order to see more</p>
+</div>
+<div *ngIf="status.code === codes.PENDING">
+  <h2 class="text-2xl font-semibold">Your order is processed</h2>
+  <p>Please do not leave this page, results will appear shortly</p>
+  <div class="flex justify-center my-6">
+    <mat-spinner [diameter]="50"></mat-spinner>
+  </div>
+</div>
+<div *ngIf="status.code === codes.COMPLETED">
+  <h2 class="text-2xl font-semibold">Order Completed</h2>
+  <p>You order was successfull!</p>
+</div>
+<div *ngIf="status.code === codes.FAILED">
+  <h2 class="text-2xl font-semibold">Order Failed</h2>
+  <p class="text-red-600">This order was not succeded for the following reasons</p>
+  <p class="text-red-600 font-semibold">{{ status.message }}</p>
+
+</div>
+</div>
+<div *ngIf="status.code !== codes.PENDING" class="flex justify-center mt-4 border-t-2">
+  <button routerLink="/"
+    class="m-2 mt-4 bg-transparent hover:bg-yellow-600 text-yellow-900 font-semibold hover:text-white py-2 px-4 border border-yellow-900 hover:border-transparent rounded">
+    Back to shop
+  </button>
+</div>

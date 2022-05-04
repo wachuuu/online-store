@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { CartItem } from '../models/cart.model';
 import { Product } from '../models/product.model';
+import { StatusService } from './status.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +18,11 @@ export class ProductsService {
   get products() { return this._products$.getValue() };
   set products(value) { this._products$.next(value) }
   
-  constructor(private readonly http: HttpClient) {
+  constructor(
+    private readonly http: HttpClient, 
+    private readonly router: Router,
+    private readonly status: StatusService,
+    ) {
     this.getProducts()
   }
 
@@ -49,6 +56,24 @@ export class ProductsService {
         const index = this.products.findIndex((item) => item._id === product._id);
         this.products.splice(index, 1);
         this._products$.next(this.products);
+      }
+    })
+  }
+
+  public buyProducts(products: CartItem[]) {
+    this.http.post(`${this.url}/buy`, products, { observe: 'response' }).subscribe((response) => {
+      if (response.ok) {
+        this.router.navigate(['thank-you']);
+        this.status.setPendingStatus('We\'re transferring your order');
+        setTimeout(() => {
+          this.status.setCompletedStatus('All completed')
+        }, 1000)
+      } else {
+        this.router.navigate(['thank-you']);
+        this.status.setPendingStatus('We\'re transferring your order');
+        setTimeout(() => {
+          this.status.setFailedStatus(response.statusText)
+        }, 1000)
       }
     })
   }

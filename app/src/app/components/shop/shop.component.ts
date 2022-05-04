@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -7,7 +7,7 @@ import { ProductsService } from 'src/app/services/products.service';
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss']
 })
-export class ShopComponent {
+export class ShopComponent implements OnInit {
 
   items: Product[] = []
   constructor(readonly productsService: ProductsService) {
@@ -16,4 +16,7 @@ export class ShopComponent {
     })
   }
 
+  ngOnInit(): void {
+    this.productsService.getProducts()
+  }
 }
