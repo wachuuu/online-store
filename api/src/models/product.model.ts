@@ -13,7 +13,7 @@ export interface IProduct {
 const productSchema = new mongoose.Schema<IProduct>({
   name: { type: String, required: true },
   price: { type: Number, required: true },
-  quantity: { type: Number, required: true },
+  quantity: { type: Number, required: true, min: 0 },
   description: String,
   thumbnail: String
 }, {
