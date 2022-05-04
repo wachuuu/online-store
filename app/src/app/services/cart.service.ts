@@ -19,7 +19,7 @@ export class CartService {
   addToCart(product: Product) {
     let index = this.cart.findIndex(item => item.product._id === product._id)
     if (index > -1) {
-      this.cart[index].quantity += 1;
+      this.cart[index].quantity = Math.min(this.cart[index].quantity + 1, this.cart[index].product.quantity);
       this._cart$.next(this.cart)
     } else {
       let newItem: CartItem = {
@@ -32,7 +32,8 @@ export class CartService {
 
   finalize() {
     this.cart.forEach((item) => {
-      console.log(item)
+      let product: Product = {...item.product, quantity: Math.max(item.product.quantity - item.quantity, 0)};
+      console.log(product)
     })
   }
 
@@ -40,7 +41,7 @@ export class CartService {
     if(!id) {
       this.cart = [];
     } else {
-      this.cart.findIndex(item => item.product._id === id)
+      this.cart.findIndex(item => item.product._id === id);
     }
   }
 }

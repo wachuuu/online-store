@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Product } from 'src/app/models/product.model';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -8,6 +9,11 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ShopComponent {
 
-  constructor(readonly productsService: ProductsService) { }
+  items: Product[] = []
+  constructor(readonly productsService: ProductsService) {
+    this.productsService.products$.subscribe((data) => {
+      this.items = data;
+    })
+  }
 
 }

@@ -1,1 +1,44 @@
-<p>cart works!</p>
+<div class="border-b-2 pb-4 px-12">
+  <h1 class="text-3xl font-bold  ">Cart</h1>
+  <a routerLink="/" class="text-blue-600">
+    < Back to shop</a>
+</div>
+<div *ngFor="let item of cartItems" class="flex border-t border-b my-4 py-2 mx-2">
+  <img class="mr-4" src="https://via.placeholder.com/150" width="50px" height="50px">
+  <div>
+    <div class="flex">
+      <div class="font-bold">
+        {{ item.product.name }}
+      </div>
+      <div class="text-yellow-600 ml-3">
+        x{{ item.quantity }}
+      </div>
+    </div>
+    {{ item.product.description }}
+  </div>
+  <div class="font-bold justify-end flex-grow text-right self-center">
+    {{ (item.product.price * item.quantity).toFixed(2) }}
+  </div>
+</div>
+<div *ngIf="cartItems.length > 0">
+  <div class="flex justify-between border-t-2 border-b-2 py-3">
+    <h2 class="font-bold mx-2">TOTAL: </h2>
+    <span class="font-bold mx-2 text-yellow-600 underline">{{ total.toFixed(2) }}</span>
+  </div>
+  <div class="flex justify-center">
+    <button (click)="finalize()"
+      class="m-2 mt-4 bg-transparent hover:bg-yellow-600 text-yellow-900 font-semibold hover:text-white py-2 px-4 border border-yellow-900 hover:border-transparent rounded">
+      Finalize
+    </button>
+    <button (click)="clear()"
+      class="m-2 mt-4 bg-transparent hover:bg-yellow-600 text-yellow-900 font-semibold hover:text-white py-2 px-4 border border-yellow-900 hover:border-transparent rounded">
+      Clear cart
+    </button>
+  </div>
+</div>
+<div *ngIf="cartItems.length === 0" class="flex justify-center">
+  <button routerLink="/"
+    class="m-2 mt-4 bg-transparent hover:bg-yellow-600 text-yellow-900 font-semibold hover:text-white py-2 px-4 border border-yellow-900 hover:border-transparent rounded">
+    Back to shop
+  </button>
+</div>

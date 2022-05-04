@@ -1,3 +1,4 @@
-<div class="grid grid-cols-4">
-  <app-product *ngFor="let product of (this.productsService.products$ | async)" [product]="product"></app-product>
+<h1 class="text-3xl font-bold border-b-2 pb-4 px-12">Products</h1>
+<div class="grid grid-cols-4 gap-y-8 mb-12">
+  <app-product *ngFor="let product of this.items" [product]="product"></app-product>
 </div>
